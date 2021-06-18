@@ -94,10 +94,102 @@ with open('output.pb', 'wb') as outfile:
 ```{r}
 library(RProtoBuf)
 readProtoFiles(files = "od.proto")
-od = read.csv("minimal-example-od-dataset.csv")
-con = file('output.pb', open = "rb")
-message = read(Dataset, con)
-cat(as.character(message))
-# how to get that into a data frame?
+# ls("RProtoBuf:DescriptorPool") # see descriptors
+odproto = new(OD)
+odproto
+
+
+
+Dataset_new$add("od_trips", od_new)
+Dataset_new$od_trips[[1]]$origin_zone
+Dataset_new$od_trips[[2]]$origin_zone
+
+od_df = read.csv("minimal-example-od-dataset.csv")
+for(i in 1:nrow(od_df)) {
+  for(j in names(Purpose)) {
+    for(k in names(Mode)) {
+      od_new = new(
+        OD,
+        origin_zone = od$geo_code1[1],
+        destination_zone = od$geo_code2[1],
+        mode = "Walking",
+        purpose = 1,
+        number_trips = od$foot[1]
+      )
+      
+    }
+  }
+}
+```
+
+
+```{r, echo=FALSE, eval=FALSE}
+# Protobuffer tests
+library(RProtoBuf)
+od = read.csv("https://github.com/atumworld/atumworld/releases/download/0/minimal-example-od-dataset.csv")
+od[1, ]
+u = "https://github.com/atumworld/atumworld/raw/main/od.proto"
+f = basename(u)
+download.file(url = u, destfile = f)
+readProtoFiles(files = "od.proto")
+odproto = new(OD)
+odproto
+(od_names = names(odproto))
+
+od_new = new(
+  OD,
+  origin_zone = od$geo_code1[1],
+  destination_zone = od$geo_code2[1],
+  mode = "Walking",
+  purpose = 1,
+  number_trips = od$foot[1]
+  )
+
+Dataset_new$add("od_trips", od_new)
+Dataset_new$od_trips[[1]]$origin_zone
+Dataset_new$od_trips[[2]]$origin_zone
+
+(allowed_mode_values = names(Purpose))
+od_new = new(
+  OD,
+  origin_zone = od$geo_code1[1],
+  destination_zone = od$geo_code2[1],
+  # mode = 1,
+  mode = "Walking",
+  purpose = 1,
+  number_trips = od$foot[1]
+  )
+
+od_new$add(od_new)
+od_new$add(
+  "origin_zone", od$geo_code2[1:3]
+  )
+Dataset_new = new(Dataset)
+
+
+
+odproto$descriptor()
+
+odproto
+odproto$od_trips
+odproto$descriptor()
+odproto$str()
+odproto$fileDescriptor()
+odproto$add()
+as.character(odproto$od_trips)
+
+
+serialize_pb(object = od, connection = "odbuf.pb")
+od2 = unserialize("odbuf.pb")
+
+# tf = tempfile()
+# con = file(tf, open = "rb")
+# od_buf = serialize(od, connection = tf)
+# 
+# # reading in the Python version
+# con = file('output.pb', open = "rb")
+# message = read(Dataset, con)
+# cat(as.character(message))
+# # how to get that into a data frame?
 ```
 

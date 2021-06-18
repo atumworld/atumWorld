@@ -1,3 +1,4 @@
 od_pb2.py
 *.swp
 __pycache__
+.Rproj.user
