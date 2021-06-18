@@ -93,30 +93,43 @@ with open('output.pb', 'wb') as outfile:
 
 ```{r}
 library(RProtoBuf)
+library(dplyr) # for data manipulation
 readProtoFiles(files = "od.proto")
 # ls("RProtoBuf:DescriptorPool") # see descriptors
-odproto = new(OD)
-odproto
-
-
-
-Dataset_new$add("od_trips", od_new)
-Dataset_new$od_trips[[1]]$origin_zone
-Dataset_new$od_trips[[2]]$origin_zone
+Dataset_new = new(Dataset)
 
 od_df = read.csv("minimal-example-od-dataset.csv")
+# Clean data - example ETL pipeline
+names(OD)
+names(Mode)
+names(Purpose)
+names(od_df)
+od_df = od_df %>% 
+  transmute(
+    origin_zone = geo_code1,
+    destination_zone = geo_code2,
+    Driving = car_driver = car_passenger,
+    PublicTransport = train + bus,
+    
+    
+  )
+
+# Clean data, match names to schema
+names(Mode)
+names(od_df) 
+
 for(i in 1:nrow(od_df)) {
-  for(j in names(Purpose)) {
+  for(j in names(Purpose)[1]) { # only one purpose in this dataset
     for(k in names(Mode)) {
       od_new = new(
         OD,
-        origin_zone = od$geo_code1[1],
-        destination_zone = od$geo_code2[1],
+        origin_zone = od$geo_code1[i],
+        destination_zone = od$geo_code2[i],
         mode = "Walking",
-        purpose = 1,
-        number_trips = od$foot[1]
+        purpose = "Commute",
+        number_trips = od[[k]][o]
       )
-      
+      Dataset_new$add("od_trips", od_new)
     }
   }
 }
@@ -164,7 +177,6 @@ od_new$add(od_new)
 od_new$add(
   "origin_zone", od$geo_code2[1:3]
   )
-Dataset_new = new(Dataset)
 
 
 

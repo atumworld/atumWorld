@@ -40,15 +40,39 @@ message OD {
 // TODO Do we want to model multi-modal trips, like driving to a park-and-ride
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
-  // Single-occupancy vehicle? Rideshare? Passengers vs drivers?
-  Driving = 0;
-  Cycling = 1;
-  Walking = 2;
-  // Distinguish buses; ferries, trains?
-  PublicTransit = 3;
-  Carpool = 4;
-  ElectricMicromobility = 5;
-  // More?
+  // Human powered modes
+  WALK = 0;
+  JOG = 1;
+  PUSH_SCOOTER = 2;
+  PEDAL_CYCLE = 3;
+
+  // Electric mobility and 2 wheelers
+  MICROMOBILITY = 4;
+  ELECTRIC_SCOOTER = 5;
+  ELECTRIC_CYCLE = 6;
+  MOBILITY_SCOOTER = 7;
+  MOTORCYCLE = 8;
+  // From STATS19
+  // Motorcycle - unknown cc 125cc and under 50cc
+  // over 125cc up to 500cc Motorcycle over 500cc
+
+  // Public transport
+  PUBLIC_TRANSPORT = 9;
+  MINIBUS = 10;
+  BUS = 11;
+  LIGHT_RAIL = 12;
+  RAIL = 13;
+
+  // Cars/Vans
+  CAR = 14;
+  CAR_DRIVER = 15;
+  CAR_PASSENGER = 16;
+  CARPOOL = 17;
+  CAR_MICRO = 18;
+  CAR_SMALL = 19;
+  CAR_LARGE = 20;
+  TRUCK = 21;
+  VAN = 22;
 }
 
 // Describes the destination (so on a return trip from work to home, the
