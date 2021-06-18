@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+// A dataset covers one region/city
+message Dataset {
+  // TODO Some stuff to specify the area it covers, the raw data sources, and
+  // models used to produce this
+
+  // No two zones may intersect.
+  // TODO Maybe we want to enforce that the union of zones partitions some
+  // boundary polygon? Except I doubt that census zones usually cover
+  // water/parks.
+  map<string, Zone> zones = 1;
+
+  repeated OD od_trips = 2;
+}
+
+message Zone {
+  // The points must represent a simple polygon. The first and last point must
+  // match, there must be no holes or self-intersections.
+
+  // TODO We can probably reuse another proto encoding for polygons
+  //repeated LatLng points = 1;
+}
+
+message OD {
+  // Both zones must be defined in the map of zones. The two zones may be the
+  // same, representing intra-zone trips.
+  string origin_zone = 1;
+  string destination_zone = 2;
+
+  Mode mode = 3;
+  Purpose purpose = 4;
+
+  uint32 number_trips = 5;
+
+  // TODO Do we want anything about the departure time of these trips?
+}
+
+// These represent a single mode.
+// TODO Do we want to model multi-modal trips, like driving to a park-and-ride
+// and taking transit? Or using an e-scooter for last mile?
+enum Mode {
+  // Single-occupancy vehicle? Rideshare? Passengers vs drivers?
+  Driving = 0;
+  Cycling = 1;
+  Walking = 2;
+  // Distinguish buses; ferries, trains?
+  PublicTransit = 3;
+  Carpool = 4;
+  ElectricMicromobility = 5;
+  // More?
+}
+
+// Describes the destination (so on a return trip from work to home, the
+// purpose would be Home)
+enum Purpose {
+  Work = 0;
+  Home = 1;
+  Shopping = 2;
+  Leisure = 3;
+  Social = 4;
+  // There's a few more of these that seem to be standard in DaySim and such
+}
