@@ -104,28 +104,29 @@ names(OD)
 names(Mode)
 names(Purpose)
 names(od_df)
-od_df = od_df %>% 
+od_clean = od_df %>% 
   transmute(
     origin_zone = geo_code1,
     destination_zone = geo_code2,
-    Driving = car_driver = car_passenger,
-    PublicTransport = train + bus,
-    
-    
+    Driving = car_driver, # currently ignoring car passengers
+    Cycling = bicycle,
+    Walking = foot,
+    PublicTransit = train + bus
   )
 
 # Clean data, match names to schema
 names(Mode)
 names(od_df) 
+(modes_in_data = names(Mode)[names(Mode) %in% names(od_clean)])
 
 for(i in 1:nrow(od_df)) {
   for(j in names(Purpose)[1]) { # only one purpose in this dataset
-    for(k in names(Mode)) {
+    for(k in ) {
       od_new = new(
         OD,
-        origin_zone = od$geo_code1[i],
-        destination_zone = od$geo_code2[i],
-        mode = "Walking",
+        origin_zone = od_clean$origin_zone[i],
+        destination_zone = od$destination_zone[i],
+        mode = k,
         purpose = "Commute",
         number_trips = od[[k]][o]
       )
