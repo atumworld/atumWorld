@@ -82,4 +82,22 @@ print(MessageToJson(dataset))
 
 # Or in the compact binary format
 print(dataset.SerializeToString())
+
+with open('output.pb', 'wb') as outfile:
+  outfile.write(dataset.SerializeToString())
+
+
 ```
+
+## In R
+
+```{r}
+library(RProtoBuf)
+readProtoFiles(files = "od.proto")
+od = read.csv("minimal-example-od-dataset.csv")
+con = file('output.pb', open = "rb")
+message = read(Dataset, con)
+cat(as.character(message))
+# how to get that into a data frame?
+```
+

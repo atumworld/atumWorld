@@ -158,4 +158,59 @@ print(MessageToJson(dataset))
 #> }
 print(dataset.SerializeToString())
 #> b'\x12\x1a\n\tE02002384\x12\tE02006875\x18\x03(\x0e\x12\x1b\n\tE02002384\x12\tE02006875\x18\x03(\x99\x01\x12\x18\n\tE02002384\x12\tE02006875(\x0e\x12\x18\n\tE02002384\x12\tE02006875(E\x12\x18\n\tE02002384\x12\tE02006875(\x12\x12\x1a\n\tE02002384\x12\tE02006875\x18\x01(\r\x12\x1b\n\tE02002384\x12\tE02006875\x18\x02(\xa7\x05'
+with open('output.pb', 'wb') as outfile:
+  outfile.write(dataset.SerializeToString())
+
+#> 192
+```
+
+## In R
+
+``` r
+library(RProtoBuf)
+readProtoFiles(files = "od.proto")
+od = read.csv("minimal-example-od-dataset.csv")
+con = file('output.pb', open = "rb")
+message = read(Dataset, con)
+cat(as.character(message))
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   mode: PublicTransit
+#>   number_trips: 14
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   mode: PublicTransit
+#>   number_trips: 153
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   number_trips: 14
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   number_trips: 69
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   number_trips: 18
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   mode: Cycling
+#>   number_trips: 13
+#> }
+#> od_trips {
+#>   origin_zone: "E02002384"
+#>   destination_zone: "E02006875"
+#>   mode: Walking
+#>   number_trips: 679
+#> }
+# how to get that into a data frame?
 ```
