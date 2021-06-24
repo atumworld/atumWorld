@@ -62,7 +62,7 @@ enum Mode {
   // over 125cc up to 500cc Motorcycle over 500cc
 
   // Public transport
-  PUBLIC_TRANSPORT_OTHER = 124;
+  PUBLIC_TRANSPORT_OTHER = 14;
   // Auto rickshaw aka tuk-tuk: https://en.wikipedia.org/wiki/Auto_rickshaw
   AUTO_RICKSHAW = 15;
   MINIBUS = 16;
