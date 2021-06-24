@@ -40,39 +40,55 @@ message OD {
 // TODO Do we want to model multi-modal trips, like driving to a park-and-ride
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
-  // Human powered modes
+// Human/animal powered modes
   WALK = 0;
   JOG = 1;
   PUSH_SCOOTER = 2;
   PEDAL_CYCLE = 3;
+  PEDAL_CYCLE_PASSENGER = 4;
+  ELECTRIC_CYCLE = 5;
+  ELECTRIC_CYCLE_PASSENGER = 6;
+  HORSE = 7;
+  HORSE_DRAWN_CARRIAGE = 8;
 
   // Electric mobility and 2 wheelers
-  MICROMOBILITY = 4;
-  ELECTRIC_SCOOTER = 5;
-  ELECTRIC_CYCLE = 6;
-  MOBILITY_SCOOTER = 7;
-  MOTORCYCLE = 8;
+  MICROMOBILITY_UNKNOWN = 9;
+  ELECTRIC_SCOOTER = 10;
+  MOBILITY_SCOOTER = 11;
+  MOTORCYCLE = 12;
+  MOTORCYCLE_PASSENGER = 13;
   // From STATS19
   // Motorcycle - unknown cc 125cc and under 50cc
   // over 125cc up to 500cc Motorcycle over 500cc
 
   // Public transport
-  PUBLIC_TRANSPORT = 9;
-  MINIBUS = 10;
-  BUS = 11;
-  LIGHT_RAIL = 12;
-  RAIL = 13;
+  PUBLIC_TRANSPORT_OTHER = 124;
+  // Auto rickshaw aka tuk-tuk: https://en.wikipedia.org/wiki/Auto_rickshaw
+  AUTO_RICKSHAW = 15;
+  MINIBUS = 16;
+  BUS = 17;
+  LIGHT_RAIL = 18;
+  RAIL = 19;
 
   // Cars/Vans
-  CAR = 14;
-  CAR_DRIVER = 15;
-  CAR_PASSENGER = 16;
-  CARPOOL = 17;
-  CAR_MICRO = 18;
-  CAR_SMALL = 19;
-  CAR_LARGE = 20;
-  TRUCK = 21;
-  VAN = 22;
+  UNKNOWN_VEHICLE_DRIVER = 20;
+  UNKNOWN_VEHICLE_PASSENGER = 21;
+  TAXI_PASSENGER = 22;
+  CARPOOL_PASSENGER = 23;
+  MICRO_CAR_DRIVER = 24;
+  MICRO_CAR_PASSENGER = 25;
+  SMALL_CAR_DRIVER = 26;
+  SMALL_CAR_PASSENGER = 27;
+  MEDIUM_CAR_DRIVER = 28;
+  MEDIUM_CAR_PASSENGER = 29;
+  LARGE_CAR_DRIVER = 30;
+  LARGE_CAR_PASSENGER = 31;
+  VAN_DRIVER = 32;
+  VAN_PASSENGER = 33;
+  TRUCK_DRIVER = 34;
+  TRUCK_PASSENGER = 35;
+  HEAVY_GOODS_VEHICLE_DRIVER = 36;
+  HEAVY_GOODS_VEHICLE_PASSENGER = 37;
 }
 
 // Describes the destination (so on a return trip from work to home, the
