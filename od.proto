@@ -100,10 +100,10 @@ enum Mode {
 // https://www.gov.uk/government/statistical-data-sets/nts04-purpose-of-trips
 enum Purpose {
   UNKNOWN_PURPOSE = 0;
-  COMMUTING_UNKNOWN = 101;
-  COMMUTING_OUTBOUND = 102;
-  COMMUTING_INBOUND = 103;
-  COMMUTING_OTHER = 104;
+  COMMUTE_UNKNOWN = 101;
+  COMMUTE_OUTBOUND = 102;
+  COMMUTE_INBOUND = 103;
+  COMMUTE_OTHER = 104;
 
   EDUCATION_UNKNOWN = 201;
   EDUCATION_OUTBOUND = 202;
