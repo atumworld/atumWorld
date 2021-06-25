@@ -40,66 +40,66 @@ message OD {
 // TODO Do we want to model multi-modal trips, like driving to a park-and-ride
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
-// Human/animal powered modes
+// Human powered modes
   UNKNOWN = 0;
   WALK = 1;
-  JOG = 1;
-  PUSH_SCOOTER = 2;
-  PEDAL_CYCLE = 3;
-  PEDAL_CYCLE_PASSENGER = 4;
-  ELECTRIC_CYCLE = 5;
-  ELECTRIC_CYCLE_PASSENGER = 6;
-  HORSE = 7;
-  HORSE_DRAWN_CARRIAGE = 8;
+  JOG = 2;
+  PUSH_SCOOTER = 3;
+  PEDAL_CYCLE = 4;
+  PEDAL_CYCLE_PASSENGER = 5;
+  ELECTRIC_CYCLE = 6;
+  ELECTRIC_CYCLE_PASSENGER = 7;
 
-  // Electric mobility and 2 wheelers
-  MICROMOBILITY_UNKNOWN = 9;
-  ELECTRIC_SCOOTER = 10;
-  MOBILITY_SCOOTER = 11;
-  MOTORCYCLE = 12;
-  MOTORCYCLE_PASSENGER = 13;
-  // From STATS19
-  // Motorcycle - unknown cc 125cc and under 50cc
-  // over 125cc up to 500cc Motorcycle over 500cc
+  // Electric mobility and powered 2 wheelers
+  MICROMOBILITY_OTHER = 101;
+  ELECTRIC_SCOOTER = 102;
+  MOBILITY_SCOOTER = 103;
+  MOTORCYCLE = 104;
+  MOTORCYCLE_PASSENGER = 105;
 
   // Public transport
-  PUBLIC_TRANSPORT_OTHER = 14;
   // Auto rickshaw aka tuk-tuk: https://en.wikipedia.org/wiki/Auto_rickshaw
-  AUTO_RICKSHAW = 15;
-  MINIBUS = 16;
-  BUS = 17;
-  // Travel by tram, tube, metro etc
-  LIGHT_RAIL = 18;
-  RAIL = 19;
+  PUBLIC_TRANSPORT_OTHER = 201;
+  AUTO_RICKSHAW = 202;
+  MINIBUS = 203;
+  BUS = 204;
+  LIGHT_RAIL = 205;
+  SUBWAY = 206;
+  RAIL_OTHER = 207;
 
-  // Cars/Vans
-  UNKNOWN_CAR_DRIVER = 20;
-  UNKNOWN_CAR_PASSENGER = 21;
-  TAXI = 22;
-  CARPOOL = 23;
-  MICRO_CAR_DRIVER = 24;
-  MICRO_CAR_PASSENGER = 25;
-  SMALL_CAR_DRIVER = 26;
-  SMALL_CAR_PASSENGER = 27;
-  MEDIUM_CAR_DRIVER = 28;
-  MEDIUM_CAR_PASSENGER = 29;
-  LARGE_CAR_DRIVER = 30;
-  LARGE_CAR_PASSENGER = 31;
-  VAN_DRIVER = 32;
-  VAN_PASSENGER = 33;
-  TRUCK_DRIVER = 34;
-  TRUCK_PASSENGER = 35;
-  HEAVY_GOODS_VEHICLE_DRIVER = 36;
-  HEAVY_GOODS_VEHICLE_PASSENGER = 37;
+  // Cars/Vans/Goods vehicles
+  UNKNOWN_CAR_DRIVER = 301;
+  UNKNOWN_CAR_PASSENGER = 302;
+  TAXI = 303;
+  CARPOOL = 304;
+  MICRO_CAR_DRIVER = 305;
+  MICRO_CAR_PASSENGER = 306;
+  SMALL_CAR_DRIVER = 307;
+  SMALL_CAR_PASSENGER = 308;
+  MEDIUM_CAR_DRIVER = 309;
+  MEDIUM_CAR_PASSENGER = 310;
+  LARGE_CAR_DRIVER = 311;
+  LARGE_CAR_PASSENGER = 312;
+  VAN_DRIVER = 313;
+  VAN_PASSENGER = 314;
+  TRUCK_DRIVER = 315;
+  TRUCK_PASSENGER = 316;
+  HEAVY_GOODS_VEHICLE_DRIVER = 317;
+  HEAVY_GOODS_VEHICLE_PASSENGER = 318;
+
+  // Other 
+  HORSE = 401;
+  HORSE_DRAWN_CARRIAGE = 402;
 }
 
 // Describes the destination (so on a return trip from work to home, the
 // purpose would be Home)
 enum Purpose {
-  Work = 0;
-  Home = 1;
-  Shopping = 2;
-  Leisure = 3;
-  Social = 4;
+  UNKNOWN = 0;
+  COMMUTING = 1;
+  SHOPPING = 2;
+  LEISURE = 3;
+  SOCIAL = 4;
+  
   // There's a few more of these that seem to be standard in DaySim and such
 }
