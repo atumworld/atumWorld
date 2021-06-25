@@ -7,7 +7,7 @@
 
 All of this is a prototype/sketch.
 
-First install the protonbuf compiler. On Ubuntu,
+First install the protobuf compiler. On Ubuntu,
 `sudo apt-get install protobuf-compiler`; on other platforms, see
 <https://developers.google.com/protocol-buffers/docs/downloads>.
 
