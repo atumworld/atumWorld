@@ -41,7 +41,8 @@ message OD {
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
 // Human/animal powered modes
-  WALK = 0;
+  UNKNOWN = 0;
+  WALK = 1;
   JOG = 1;
   PUSH_SCOOTER = 2;
   PEDAL_CYCLE = 3;
