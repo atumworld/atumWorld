@@ -40,24 +40,111 @@ message OD {
 // TODO Do we want to model multi-modal trips, like driving to a park-and-ride
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
-  // Single-occupancy vehicle? Rideshare? Passengers vs drivers?
-  Driving = 0;
-  Cycling = 1;
-  Walking = 2;
-  // Distinguish buses; ferries, trains?
-  PublicTransit = 3;
-  Carpool = 4;
-  ElectricMicromobility = 5;
-  // More?
+  UNKNOWN_MODE = 0;
+
+  // Human powered modes
+  WALK = 101;
+  JOG = 102;
+  PUSH_SCOOTER = 103;
+  PEDAL_CYCLE = 104;
+  PEDAL_CYCLE_PASSENGER = 105;
+  ELECTRIC_CYCLE = 106;
+  ELECTRIC_CYCLE_PASSENGER = 107;
+
+  // Electric mobility and powered 2 wheelers
+  MICROMOBILITY_OTHER = 201;
+  ELECTRIC_SCOOTER = 202;
+  MOBILITY_SCOOTER = 203;
+  MOTORCYCLE = 204;
+  MOTORCYCLE_PASSENGER = 205;
+
+  // Public transport
+  // Auto rickshaw aka tuk-tuk: https://en.wikipedia.org/wiki/Auto_rickshaw
+  PUBLIC_TRANSPORT_OTHER = 301;
+  AUTO_RICKSHAW = 302;
+  MINIBUS = 303;
+  BUS = 304;
+  LIGHT_RAIL = 305;
+  SUBWAY = 306;
+  RAIL_OTHER = 307;
+
+  // Cars/Vans/Goods vehicles
+  UNKNOWN_CAR_DRIVER = 401;
+  UNKNOWN_CAR_PASSENGER = 402;
+  TAXI = 403;
+  CARPOOL = 404;
+  MICRO_CAR_DRIVER = 405;
+  MICRO_CAR_PASSENGER = 406;
+  SMALL_CAR_DRIVER = 407;
+  SMALL_CAR_PASSENGER = 408;
+  MEDIUM_CAR_DRIVER = 409;
+  MEDIUM_CAR_PASSENGER = 410;
+  LARGE_CAR_DRIVER = 411;
+  LARGE_CAR_PASSENGER = 412;
+  VAN_DRIVER = 413;
+  VAN_PASSENGER = 414;
+  TRUCK_DRIVER = 415;
+  TRUCK_PASSENGER = 416;
+  HEAVY_GOODS_VEHICLE_DRIVER = 417;
+  HEAVY_GOODS_VEHICLE_PASSENGER = 418;
+
+  // Other
+  HORSE = 501;
+  HORSE_DRAWN_CARRIAGE = 502;
 }
 
-// Describes the destination (so on a return trip from work to home, the
-// purpose would be Home)
+// Describes the journey purpose
+// unknown means in either direction, outbound means from home,
+// outbound means from home, inbound means towards home, other means neither from or to home
+// Source for common journey purposes: NTS
+// https://www.gov.uk/government/statistical-data-sets/nts04-purpose-of-trips
 enum Purpose {
-  Work = 0;
-  Home = 1;
-  Shopping = 2;
-  Leisure = 3;
-  Social = 4;
+  UNKNOWN_PURPOSE = 0;
+  COMMUTING_UNKNOWN = 101;
+  COMMUTING_OUTBOUND = 102;
+  COMMUTING_INBOUND = 103;
+  COMMUTING_OTHER = 104;
+
+  EDUCATION_UNKNOWN = 201;
+  EDUCATION_OUTBOUND = 202;
+  EDUCATION_INBOUND = 203;
+  EDUCATION_OTHER = 204;
+
+  EDUCATION_ESCORT_UNKNOWN = 301;
+  EDUCATION_ESCORT_OUTBOUND = 302;
+  EDUCATION_ESCORT_INBOUND = 303;
+  EDUCATION_ESCORT_OTHER = 304;
+
+  SHOPPING_UNKNOWN = 401;
+  SHOPPING_OUTBOUND = 402;
+  SHOPPING_INBOUND = 403;
+  SHOPPING_OTHER = 404;
+
+  SOCIAL_UNKNOWN = 501;
+  SOCIAL_OUTBOUND = 502;
+  SOCIAL_INBOUND = 503;
+  SOCIAL_OTHER = 504;
+
+  LEISURE_UNKNOWN = 601;
+  LEISURE_OUTBOUND = 602;
+  LEISURE_INBOUND = 603;
+  LEISURE_OTHER = 604;
+
+  HOLIDAY_UNKNOWN = 701;
+  HOLIDAY_OUTBOUND = 702;
+  HOLIDAY_INBOUND = 703;
+  HOLIDAY_OTHER = 704;
+
+  BUSINESS_UNKNOWN = 801;
+  BUSINESS_OUTBOUND = 802;
+  BUSINESS_INBOUND = 803;
+  BUSINESS_OTHER = 804;
+
+  OTHER_UNKNOWN = 901;
+  OTHER_OUTBOUND = 902;
+  OTHER_INBOUND = 903;
+  OTHER_OTHER = 904;
+
+
   // There's a few more of these that seem to be standard in DaySim and such
 }

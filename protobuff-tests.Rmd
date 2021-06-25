@@ -59,19 +59,19 @@ with open('minimal-example-od-dataset.csv') as csv_file:
 
         # Let's add an OD entry for each of the modes here
         for (col_name, mode_enum) in [
-                ('train', od_pb2.Mode.PublicTransit),
-                ('bus', od_pb2.Mode.PublicTransit),
-                ('taxi', od_pb2.Mode.Driving),
-                ('car_driver', od_pb2.Mode.Driving),
-                ('car_passenger', od_pb2.Mode.Driving),
-                ('bicycle', od_pb2.Mode.Cycling),
-                ('foot', od_pb2.Mode.Walking),
+                ('train', od_pb2.Mode.RAIL_OTHER),
+                ('bus', od_pb2.Mode.BUS),
+                ('taxi', od_pb2.Mode.TAXI),
+                ('car_driver', od_pb2.Mode.UNKNOWN_CAR_DRIVER),
+                ('car_passenger', od_pb2.Mode.UNKNOWN_CAR_DRIVER),
+                ('bicycle', od_pb2.Mode.PEDAL_CYCLE),
+                ('foot', od_pb2.Mode.WALK),
         ]:
             od = dataset.od_trips.add()
             od.origin_zone = row['geo_code1']
             od.destination_zone = row['geo_code2']
             od.mode = mode_enum
-            od.purpose = od_pb2.Purpose.Work
+            od.purpose = od_pb2.Purpose.COMMUTING_UNKNOWN
             od.number_trips = int(row[col_name])
 
 # We can print in a human-readable format:
@@ -93,33 +93,52 @@ with open('output.pb', 'wb') as outfile:
 
 ```{r}
 library(RProtoBuf)
+library(dplyr) # for data manipulation
 readProtoFiles(files = "od.proto")
 # ls("RProtoBuf:DescriptorPool") # see descriptors
-odproto = new(OD)
-odproto
-
-
-
-Dataset_new$add("od_trips", od_new)
-Dataset_new$od_trips[[1]]$origin_zone
-Dataset_new$od_trips[[2]]$origin_zone
+Dataset_new = new(Dataset)
 
 od_df = read.csv("minimal-example-od-dataset.csv")
+# Clean data - example ETL pipeline
+
+names(OD)
+names(Mode)
+names(Purpose)
+names(od_df)
+od_clean = od_df %>% 
+  transmute(
+    origin_zone = geo_code1,
+    destination_zone = geo_code2,
+    UNKNOWN_CAR_DRIVER = car_driver, # currently ignoring car passengers
+    UNKNOWN_CAR_PASSENGER = car_passenger, # currently ignoring car passengers
+    PEDAL_CYCLE = bicycle,
+    WALK = foot,
+    RAIL_OTHER = train,
+    BUS = bus,
+    TAXI = taxi
+  )
+
+# Clean data, match names to schema
+names(Mode)
+names(od_df) 
+(modes_in_data = names(Mode)[names(Mode) %in% names(od_clean)])
+
 for(i in 1:nrow(od_df)) {
-  for(j in names(Purpose)) {
-    for(k in names(Mode)) {
+  for(j in names(Purpose)[1]) { # only one purpose in this dataset
+    for(k in names(modes_in_data)) {
       od_new = new(
         OD,
-        origin_zone = od$geo_code1[1],
-        destination_zone = od$geo_code2[1],
-        mode = "Walking",
-        purpose = 1,
-        number_trips = od$foot[1]
+        origin_zone = od_clean$origin_zone[i],
+        destination_zone = od$destination_zone[i],
+        mode = k,
+        purpose = "Commute",
+        number_trips = od[[k]][o]
       )
-      
+      Dataset_new$add("od_trips", od_new)
     }
   }
 }
+
 ```
 
 
@@ -164,7 +183,6 @@ od_new$add(od_new)
 od_new$add(
   "origin_zone", od$geo_code2[1:3]
   )
-Dataset_new = new(Dataset)
 
 
 
