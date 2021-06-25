@@ -71,7 +71,7 @@ with open('minimal-example-od-dataset.csv') as csv_file:
             od.origin_zone = row['geo_code1']
             od.destination_zone = row['geo_code2']
             od.mode = mode_enum
-            od.purpose = od_pb2.Purpose.COMMUTING_UNKNOWN
+            od.purpose = od_pb2.Purpose.COMMUTE_UNKNOWN
             od.number_trips = int(row[col_name])
 
 # We can print in a human-readable format:
@@ -120,25 +120,26 @@ od_clean = od_df %>%
 
 # Clean data, match names to schema
 names(Mode)
-names(od_df) 
+names(od_clean) 
 (modes_in_data = names(Mode)[names(Mode) %in% names(od_clean)])
 
 for(i in 1:nrow(od_df)) {
   for(j in names(Purpose)[1]) { # only one purpose in this dataset
-    for(k in names(modes_in_data)) {
+    for(k in modes_in_data) {
       od_new = new(
         OD,
         origin_zone = od_clean$origin_zone[i],
-        destination_zone = od$destination_zone[i],
+        destination_zone = od_clean$destination_zone[i],
         mode = k,
-        purpose = "Commute",
-        number_trips = od[[k]][o]
+        purpose = "COMMUTE_UNKNOWN",
+        number_trips = od_clean[[k]][i]
       )
       Dataset_new$add("od_trips", od_new)
     }
   }
 }
 
+Dataset_new$od_trips
 ```
 
 

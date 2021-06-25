@@ -15,7 +15,6 @@ Then generate the Python library as follows:
 
 ``` bash
 protoc od.proto --python_out=.
-#> bash: /home/robin/.local/share/r-miniconda/envs/r-reticulate/lib/libtinfo.so.6: no version information available (required by bash)
 ```
 
 This creates `od_pb2.py`.
@@ -62,7 +61,7 @@ with open('minimal-example-od-dataset.csv') as csv_file:
             od.origin_zone = row['geo_code1']
             od.destination_zone = row['geo_code2']
             od.mode = mode_enum
-            od.purpose = od_pb2.Purpose.COMMUTING_UNKNOWN
+            od.purpose = od_pb2.Purpose.COMMUTE_UNKNOWN
             od.number_trips = int(row[col_name])
 
 # We can print in a human-readable format:
@@ -75,49 +74,49 @@ print(dataset)
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: RAIL_OTHER
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 14
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: BUS
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 153
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: TAXI
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 14
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: UNKNOWN_CAR_DRIVER
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 69
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: UNKNOWN_CAR_DRIVER
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 18
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: PEDAL_CYCLE
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 13
 #> }
 #> od_trips {
 #>   origin_zone: "E02002384"
 #>   destination_zone: "E02006875"
 #>   mode: WALK
-#>   purpose: COMMUTING_UNKNOWN
+#>   purpose: COMMUTE_UNKNOWN
 #>   number_trips: 679
 #> }
 print(MessageToJson(dataset))
@@ -129,49 +128,49 @@ print(MessageToJson(dataset))
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "RAIL_OTHER",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 14
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "BUS",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 153
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "TAXI",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 14
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "UNKNOWN_CAR_DRIVER",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 69
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "UNKNOWN_CAR_DRIVER",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 18
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "PEDAL_CYCLE",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 13
 #>     },
 #>     {
 #>       "originZone": "E02002384",
 #>       "destinationZone": "E02006875",
 #>       "mode": "WALK",
-#>       "purpose": "COMMUTING_UNKNOWN",
+#>       "purpose": "COMMUTE_UNKNOWN",
 #>       "numberTrips": 679
 #>     }
 #>   ]
@@ -229,9 +228,9 @@ names(Mode)
 #> [37] "HEAVY_GOODS_VEHICLE_DRIVER"    "HEAVY_GOODS_VEHICLE_PASSENGER"
 #> [39] "HORSE"                         "HORSE_DRAWN_CARRIAGE"
 names(Purpose)
-#>  [1] "UNKNOWN_PURPOSE"           "COMMUTING_UNKNOWN"        
-#>  [3] "COMMUTING_OUTBOUND"        "COMMUTING_INBOUND"        
-#>  [5] "COMMUTING_OTHER"           "EDUCATION_UNKNOWN"        
+#>  [1] "UNKNOWN_PURPOSE"           "COMMUTE_UNKNOWN"          
+#>  [3] "COMMUTE_OUTBOUND"          "COMMUTE_INBOUND"          
+#>  [5] "COMMUTE_OTHER"             "EDUCATION_UNKNOWN"        
 #>  [7] "EDUCATION_OUTBOUND"        "EDUCATION_INBOUND"        
 #>  [9] "EDUCATION_OTHER"           "EDUCATION_ESCORT_UNKNOWN" 
 #> [11] "EDUCATION_ESCORT_OUTBOUND" "EDUCATION_ESCORT_INBOUND" 
@@ -287,10 +286,10 @@ names(Mode)
 #> [35] "TRUCK_DRIVER"                  "TRUCK_PASSENGER"              
 #> [37] "HEAVY_GOODS_VEHICLE_DRIVER"    "HEAVY_GOODS_VEHICLE_PASSENGER"
 #> [39] "HORSE"                         "HORSE_DRAWN_CARRIAGE"
-names(od_df) 
-#>  [1] "geo_code1"     "geo_code2"     "all"           "train"        
-#>  [5] "bus"           "taxi"          "car_driver"    "car_passenger"
-#>  [9] "bicycle"       "foot"
+names(od_clean) 
+#> [1] "origin_zone"           "destination_zone"      "UNKNOWN_CAR_DRIVER"   
+#> [4] "UNKNOWN_CAR_PASSENGER" "PEDAL_CYCLE"           "WALK"                 
+#> [7] "RAIL_OTHER"            "BUS"                   "TAXI"
 (modes_in_data = names(Mode)[names(Mode) %in% names(od_clean)])
 #> [1] "WALK"                  "PEDAL_CYCLE"           "BUS"                  
 #> [4] "RAIL_OTHER"            "UNKNOWN_CAR_DRIVER"    "UNKNOWN_CAR_PASSENGER"
@@ -298,17 +297,39 @@ names(od_df)
 
 for(i in 1:nrow(od_df)) {
   for(j in names(Purpose)[1]) { # only one purpose in this dataset
-    for(k in names(modes_in_data)) {
+    for(k in modes_in_data) {
       od_new = new(
         OD,
         origin_zone = od_clean$origin_zone[i],
-        destination_zone = od$destination_zone[i],
+        destination_zone = od_clean$destination_zone[i],
         mode = k,
-        purpose = "Commute",
-        number_trips = od[[k]][o]
+        purpose = "COMMUTE_UNKNOWN",
+        number_trips = od_clean[[k]][i]
       )
       Dataset_new$add("od_trips", od_new)
     }
   }
 }
+
+Dataset_new$od_trips
+#> [[1]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[2]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[3]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[4]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[5]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[6]]
+#> message of type 'OD' with 5 fields set
+#> 
+#> [[7]]
+#> message of type 'OD' with 5 fields set
 ```

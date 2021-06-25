@@ -36,7 +36,7 @@ with open('minimal-example-od-dataset.csv') as csv_file:
             od.origin_zone = row['geo_code1']
             od.destination_zone = row['geo_code2']
             od.mode = mode_enum
-            od.purpose = od_pb2.Purpose.COMMUTING_UNKNOWN
+            od.purpose = od_pb2.Purpose.COMMUTE_UNKNOWN
             od.number_trips = int(row[col_name])
 
 # We can print in a human-readable format:
