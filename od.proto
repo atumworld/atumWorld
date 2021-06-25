@@ -40,7 +40,7 @@ message OD {
 // TODO Do we want to model multi-modal trips, like driving to a park-and-ride
 // and taking transit? Or using an e-scooter for last mile?
 enum Mode {
-  UNKNOWN = 0;
+  UNKNOWN_MODE = 0;
 
   // Human powered modes
   WALK = 101;
@@ -99,7 +99,7 @@ enum Mode {
 // Source for common journey purposes: NTS
 // https://www.gov.uk/government/statistical-data-sets/nts04-purpose-of-trips
 enum Purpose {
-  UNKNOWN = 0;
+  UNKNOWN_PURPOSE = 0;
   COMMUTING_UNKNOWN = 101;
   COMMUTING_OUTBOUND = 102;
   COMMUTING_INBOUND = 103;
