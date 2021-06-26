@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 All of this is a prototype/sketch.
 
-First install the protonbuf compiler. On Ubuntu, `sudo apt-get install
+First install the protobuf compiler. On Ubuntu, `sudo apt-get install
 protobuf-compiler`; on other platforms, see
 <https://developers.google.com/protocol-buffers/docs/downloads>.
 
